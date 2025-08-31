@@ -21,7 +21,7 @@ class MiniTalesHttpClientBuilder {
 
     private lateinit var protocol: URLProtocol
     private lateinit var host: String
-    private var port: Int = 8080
+    private var port: Int? = null
 
     fun protocol(protocol: URLProtocol) = apply { this.protocol = protocol }
 
@@ -46,7 +46,7 @@ class MiniTalesHttpClientBuilder {
                 url {
                     protocol = this@MiniTalesHttpClientBuilder.protocol
                     host = this@MiniTalesHttpClientBuilder.host
-                    port = this@MiniTalesHttpClientBuilder.port
+                    this@MiniTalesHttpClientBuilder.port?.let { port = it }
                 }
 
                 header(HttpHeaders.ContentType, "application/json")
@@ -62,7 +62,7 @@ class MiniTalesHttpClientBuilder {
                 )
             }
 
-            install(Auth){
+            install(Auth) {
                 bearer {
                     loadTokens {
                         BearerTokens("", "")
@@ -73,8 +73,8 @@ class MiniTalesHttpClientBuilder {
                 }
             }
 
-            install(Logging){
-                logger = object: Logger {
+            install(Logging) {
+                logger = object : Logger {
                     override fun log(message: String) {
                         println(message)
                     }

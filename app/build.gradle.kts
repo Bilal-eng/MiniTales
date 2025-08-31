@@ -22,16 +22,23 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "MINI_TALES_HOST", "\"not given\"")
+        }
+
+        debug {
+            buildConfigField("String", "MINI_TALES_HOST", "\"192.168.10.34\"")
         }
     }
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
     implementation(projects.theme)
+    implementation(projects.network)
     implementation(projects.features.auth)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
