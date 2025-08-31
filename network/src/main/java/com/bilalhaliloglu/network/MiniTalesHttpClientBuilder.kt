@@ -62,7 +62,7 @@ class MiniTalesHttpClientBuilder {
                 )
             }
 
-            install(Auth) {
+            install(Auth){
                 bearer {
                     loadTokens {
                         BearerTokens("", "")
@@ -73,8 +73,8 @@ class MiniTalesHttpClientBuilder {
                 }
             }
 
-            install(Logging) {
-                logger = object : Logger {
+            install(Logging){
+                logger = object: Logger {
                     override fun log(message: String) {
                         println(message)
                     }
